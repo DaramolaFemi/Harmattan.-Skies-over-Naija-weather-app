@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Harmattan — Nigerian Weather</title>
+<meta name="description" content="A refined weather companion for Nigerian cities — Lagos, Abuja, Kano and beyond.">
+<meta name="color-scheme" content="dark light">
+<meta name="author" content="Daramola Femi">
+
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="apple-touch-icon" href="favicon.svg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-theme="dark">
+
+<div class="grain" aria-hidden="true"></div>
+
+<div class="weather-fx-back" aria-hidden="true">
+  <div class="fx-sunglow"></div>
+  <div class="fx-clouds">
+    <span class="fx-cloud fc1"></span>
+    <span class="fx-cloud fc2"></span>
+  </div>
+  <div class="fx-haze"></div>
+</div>
+
+<div class="weather-fx-front" aria-hidden="true">
+  <div class="fx-rain" id="fxRain"></div>
+  <div class="fx-flash"></div>
+</div>
+
+<div class="app">
+
+  <header class="topbar">
+    <div class="brand">
+      <svg class="brand-mark" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+        <circle cx="24" cy="24" r="10" class="mark-core"/>
+        <path class="mark-rays" d="M24 2v7M24 39v7M46 24h-7M9 24H2M38.6 9.4l-4.9 4.9M14.3 33.7l-4.9 4.9M38.6 38.6l-4.9-4.9M14.3 14.3L9.4 9.4" stroke-width="2.4" stroke-linecap="round"/>
+      </svg>
+      <div class="brand-text">
+        <h1>Harmattan<span>.</span></h1>
+        <p>Skies over Naija</p>
+      </div>
+    </div>
+
+    <div class="search-wrap">
+      <svg viewBox="0 0 24 24" class="search-icon" aria-hidden="true"><path d="M11 19a8 8 0 1 1 5.29-14.02A8 8 0 0 1 11 19Zm10 2-4.35-4.35" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+      <input id="citySearch" type="text" list="cityList" placeholder="Search a Nigerian city…" autocomplete="off">
+      <datalist id="cityList"></datalist>
+    </div>
+
+    <div class="topbar-actions">
+      <button id="unitToggle" class="unit-toggle" type="button" aria-label="Toggle temperature unit">
+        <span class="unit-c is-active">°C</span><span class="unit-sep">/</span><span class="unit-f">°F</span>
+      </button>
+      <button id="soundToggle" class="sound-toggle" type="button" aria-label="Toggle ambient weather sound" aria-pressed="false">
+        <svg viewBox="0 0 24 24" class="icon-sound-on" aria-hidden="true"><path d="M4 9.5v5h3.2L12 18.8V5.2L7.2 9.5H4Z" stroke-linejoin="round"/><path d="M16 9a4.2 4.2 0 0 1 0 6M18.3 6.7a7.8 7.8 0 0 1 0 10.6" stroke-linecap="round"/></svg>
+        <svg viewBox="0 0 24 24" class="icon-sound-off" aria-hidden="true"><path d="M4 9.5v5h3.2L12 18.8V5.2L7.2 9.5H4Z" stroke-linejoin="round"/><path d="m15.5 9.5 5 5M20.5 9.5l-5 5" stroke-linecap="round"/></svg>
+        <span class="sound-wave" aria-hidden="true"></span>
+      </button>
+      <button id="themeToggle" class="theme-toggle" type="button" aria-label="Toggle dark and light mode">
+        <svg viewBox="0 0 24 24" class="icon-sun" aria-hidden="true"><circle cx="12" cy="12" r="4.6"/><path d="M12 2.5v3M12 18.5v3M21.5 12h-3M5.5 12h-3M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1M18.4 18.4l-2.1-2.1M7.7 7.7 5.6 5.6" stroke-linecap="round"/></svg>
+        <svg viewBox="0 0 24 24" class="icon-moon" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.8 6.8 0 0 0 10.5 10.5Z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="hero" data-condition="clear" data-day="true">
+      <div class="scene" id="scene" aria-hidden="true">
+        <div class="scene-sky"></div>
+        <div class="scene-sun"></div>
+        <div class="scene-clouds">
+          <span class="cloud c1"></span>
+          <span class="cloud c2"></span>
+          <span class="cloud c3"></span>
+        </div>
+        <div class="scene-rain"></div>
+        <div class="scene-haze"></div>
+        <div class="scene-flash"></div>
+        <div class="scene-stars"></div>
+      </div>
+
+      <div class="hero-content">
+        <p class="greeting" id="greeting">Good afternoon</p>
+        <div class="city-row">
+          <h2 class="city-name" id="cityName">Lagos</h2>
+          <span class="state-tag" id="stateTag">South‑West</span>
+        </div>
+        <p class="date-time" id="dateTime">—</p>
+
+        <div class="temp-block">
+          <span class="temp-icon" id="tempIcon"></span>
+          <div class="temp-value-wrap">
+            <span class="temp-value" id="tempValue">--</span>
+            <span class="temp-unit">°</span>
+          </div>
+        </div>
+
+        <p class="condition-label" id="conditionLabel">Loading conditions…</p>
+        <p class="feels-like" id="feelsLike">&nbsp;</p>
+
+        <div class="mood-row">
+          <svg class="mood-mark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5 13.6 8l4.9.4-3.7 3.2 1.1 4.8L12 13.9l-4.3 2.5 1.1-4.8L5.1 8.4 10 8Z" stroke-linejoin="round"/></svg>
+          <p class="mood-line" id="moodLine">Reading the skies…</p>
+          <button class="mood-shuffle" id="moodShuffle" type="button" aria-label="Show another mood line">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h3.5c3 0 4 1.5 6 5s3 5 6 5H21M4 17h3.5c1.4 0 2.4-.4 3.3-1.3M17 4l4 3-4 3M17 14l4 3-4 3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="hero-loading" id="heroLoading"><div class="spinner"></div></div>
+    </section>
+
+    <section class="chips" id="cityChips" aria-label="Popular Nigerian cities"></section>
+
+    <section class="stats-grid" id="statsGrid"></section>
+
+    <section class="forecast">
+      <div class="section-heading">
+        <h3>Five‑day outlook</h3>
+        <span class="section-sub" id="tzLabel"></span>
+      </div>
+      <div class="forecast-track" id="forecastTrack"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Live data via Open‑Meteo · Built for the Naija skies.</p>
+    <p class="credit">&copy; <span id="year"></span> Daramola Femi. All rights reserved.</p>
+  </footer>
+
+</div>
+
+<div class="toast" id="toast" role="alert"></div>
+
+<script src="audio.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
