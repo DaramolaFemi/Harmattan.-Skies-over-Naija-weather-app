@@ -222,7 +222,12 @@ body[data-condition="storm"] .app{ animation: fx-shake 7s ease-in-out infinite; 
   padding: var(--space-2) 0 var(--space-4);
 }
 
-.brand{ display: flex; align-items: center; gap: .7rem; flex-shrink: 0; }
+.brand{
+  display: flex; align-items: center; gap: .7rem; flex-shrink: 0;
+  color: inherit; text-decoration: none;
+  transition: opacity .2s var(--ease-soft);
+}
+a.brand:hover{ opacity: .82; }
 .brand-mark{ width: 34px; height: 34px; color: var(--gold); }
 .brand-mark .mark-core{ fill: var(--gold); stroke: none; }
 .brand-mark .mark-rays{ stroke: var(--sage); }
@@ -265,6 +270,22 @@ body[data-condition="storm"] .app{ animation: fx-shake 7s ease-in-out infinite; 
 .search-wrap input::placeholder{ color: var(--ink-faint); }
 
 .topbar-actions{ display: flex; align-items: center; gap: .6rem; flex-shrink: 0; }
+
+.play-link{
+  display: flex; align-items: center; gap: .35rem;
+  font-size: .78rem; font-weight: 600;
+  text-decoration: none;
+  background: var(--card-glass);
+  backdrop-filter: blur(16px) saturate(1.3);
+  -webkit-backdrop-filter: blur(16px) saturate(1.3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  padding: .55rem .95rem .55rem .7rem;
+  color: var(--gold);
+  transition: border-color .25s var(--ease-soft), background .25s var(--ease-soft);
+}
+.play-link:hover{ border-color: var(--border-strong); background: var(--card-glass-strong); }
+.play-link .icon-play{ width: 15px; height: 15px; fill: currentColor; stroke: none; }
 
 .unit-toggle{
   display: flex; align-items: center; gap: .3rem;
@@ -716,7 +737,7 @@ footer .credit{ margin-top: .35rem; font-size: .7rem; letter-spacing: .02em; opa
 /* ---------- Glass fallback for browsers without backdrop-filter ---------- */
 
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))){
-  .search-wrap, .unit-toggle, .sound-toggle, .theme-toggle, .chip, .stat-card, .forecast-card{
+  .search-wrap, .play-link, .unit-toggle, .sound-toggle, .theme-toggle, .chip, .stat-card, .forecast-card{
     background: var(--card-strong);
   }
 }
@@ -736,4 +757,7 @@ footer .credit{ margin-top: .35rem; font-size: .7rem; letter-spacing: .02em; opa
 @media (max-width: 480px){
   .brand-text p{ display: none; }
   .forecast-track{ grid-auto-columns: minmax(96px, 1fr); }
+  .play-link span{ display: none; }
+  .play-link{ padding: .55rem; border-radius: 50%; }
+  .play-link .icon-play{ width: 17px; height: 17px; }
 }

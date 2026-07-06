@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>9jaRun — a weather-powered game | Harmattan. The 9ja skies</title>
+<meta name="description" content="An endless runner generated from the real, live weather over your chosen Nigerian city — no two skies play the same.">
+<meta name="color-scheme" content="dark light">
+<meta name="author" content="Daramola Femi">
+
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="apple-touch-icon" href="favicon.svg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="game.css">
+</head>
+<body data-theme="dark">
+
+<div class="grain" aria-hidden="true"></div>
+
+<div class="app">
+
+  <header class="topbar">
+    <a class="brand" href="index.html" aria-label="Back to Harmattan weather">
+      <svg class="brand-mark" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+        <circle cx="24" cy="24" r="10" class="mark-core"/>
+        <path class="mark-rays" d="M24 2v7M24 39v7M46 24h-7M9 24H2M38.6 9.4l-4.9 4.9M14.3 33.7l-4.9 4.9M38.6 38.6l-4.9-4.9M14.3 14.3L9.4 9.4" stroke-width="2.4" stroke-linecap="round"/>
+      </svg>
+      <div class="brand-text">
+        <h1>9jaRun<span>.</span></h1>
+        <p id="gameCityTag">Reading the sky…</p>
+      </div>
+    </a>
+
+    <div class="topbar-actions">
+      <div class="score-pill" id="scorePill">
+        <span class="score-label">Score</span><span class="score-value" id="scoreValue">0</span>
+      </div>
+      <div class="score-pill score-pill-best" id="bestPill">
+        <span class="score-label">Best</span><span class="score-value" id="bestValue">0</span>
+      </div>
+      <button id="gameSoundToggle" class="sound-toggle" type="button" aria-label="Toggle ambient weather sound" aria-pressed="false">
+        <svg viewBox="0 0 24 24" class="icon-sound-on" aria-hidden="true"><path d="M4 9.5v5h3.2L12 18.8V5.2L7.2 9.5H4Z" stroke-linejoin="round"/><path d="M16 9a4.2 4.2 0 0 1 0 6M18.3 6.7a7.8 7.8 0 0 1 0 10.6" stroke-linecap="round"/></svg>
+        <svg viewBox="0 0 24 24" class="icon-sound-off" aria-hidden="true"><path d="M4 9.5v5h3.2L12 18.8V5.2L7.2 9.5H4Z" stroke-linejoin="round"/><path d="m15.5 9.5 5 5M20.5 9.5l-5 5" stroke-linecap="round"/></svg>
+        <span class="sound-wave" aria-hidden="true"></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <p class="game-tagline">Every run is generated from <span id="gameCityName">this city's</span> real, live weather, right now. Change the city on the <a href="index.html">weather page</a> and come back for a different sky.</p>
+
+    <section class="weather-chips" id="weatherChips" aria-label="Live weather modifiers"></section>
+
+    <section class="stage-wrap">
+      <div class="stage" id="stage" data-condition="clear" data-day="true" tabindex="0" role="application" aria-label="9jaRun game stage — tap or press space to jump, arrow down to duck">
+
+        <div class="stage-sky"></div>
+        <div class="stage-clouds"><span class="s-cloud sc1"></span><span class="s-cloud sc2"></span></div>
+        <div class="stage-fog" id="stageFog"></div>
+        <div class="stage-glare" id="stageGlare"></div>
+        <div class="stage-flash" id="stageFlash"></div>
+
+        <div class="obstacle-layer" id="obstacleLayer"></div>
+
+        <div class="ground"></div>
+
+        <div class="player-shadow" id="playerShadow"></div>
+        <div class="player" id="player">
+          <svg viewBox="0 0 24 30" aria-hidden="true">
+            <circle class="p-head" cx="12" cy="5" r="4.4"/>
+            <path class="p-body" d="M12 9.5v9M12 12l-5 2M12 12l5 2"/>
+            <path class="p-leg" d="M12 18.5 8 27M12 18.5l4 8.5"/>
+          </svg>
+        </div>
+
+        <div class="stamina-wrap" id="staminaWrap" hidden>
+          <div class="stamina-bar" id="staminaBar"></div>
+        </div>
+
+        <div class="gust-warning" id="gustWarning">Gust incoming</div>
+
+        <div class="start-overlay" id="startOverlay">
+          <p class="start-title">Tap, click or press Space to run</p>
+          <p class="start-sub" id="startSub">Reading the sky over Lagos…</p>
+        </div>
+
+        <div class="gameover-overlay" id="gameoverOverlay" hidden>
+          <p class="gameover-title">Run ended</p>
+          <p class="gameover-score">Score <strong id="finalScore">0</strong> · Best <strong id="finalBest">0</strong></p>
+          <div class="gameover-actions">
+            <button id="retryBtn" type="button" class="btn-primary">Run again</button>
+            <a href="index.html" class="btn-ghost">Back to weather</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="touch-controls" id="touchControls">
+        <button id="jumpBtn" type="button">Jump</button>
+        <button id="duckBtn" type="button">Duck</button>
+      </div>
+    </section>
+
+    <section class="rules-card">
+      <h3>How this sky plays you</h3>
+      <ul id="rulesList"></ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>Live data via Open‑Meteo · 9jaRun regenerates every time the sky does.</p>
+    <p class="credit">&copy; <span id="gameYear"></span> Daramola Femi. All rights reserved.</p>
+  </footer>
+
+</div>
+
+<script src="weather-data.js"></script>
+<script src="audio.js"></script>
+<script src="game.js"></script>
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Harmattan — Nigerian Weather</title>
+<title>Harmattan. The 9ja skies</title>
 <meta name="description" content="A refined weather companion for Nigerian cities — Lagos, Abuja, Kano and beyond.">
 <meta name="color-scheme" content="dark light">
 <meta name="author" content="Daramola Femi">
@@ -45,7 +45,7 @@
       </svg>
       <div class="brand-text">
         <h1>Harmattan<span>.</span></h1>
-        <p>Skies over Naija</p>
+        <p>The 9ja skies</p>
       </div>
     </div>
 
@@ -56,6 +56,10 @@
     </div>
 
     <div class="topbar-actions">
+      <a id="playLink" class="play-link" href="game.html" aria-label="Play 9jaRun, a weather-powered game">
+        <svg viewBox="0 0 24 24" class="icon-play" aria-hidden="true"><path d="M7 5.5v13l11-6.5-11-6.5Z" stroke-linejoin="round"/></svg>
+        <span>9jaRun</span>
+      </a>
       <button id="unitToggle" class="unit-toggle" type="button" aria-label="Toggle temperature unit">
         <span class="unit-c is-active">°C</span><span class="unit-sep">/</span><span class="unit-f">°F</span>
       </button>
@@ -140,6 +144,7 @@
 
 <div class="toast" id="toast" role="alert"></div>
 
+<script src="weather-data.js"></script>
 <script src="audio.js"></script>
 <script src="main.js"></script>
 </body>
