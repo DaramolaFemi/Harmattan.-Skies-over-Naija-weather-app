@@ -1,7 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(open -a \"Google Chrome\" \"http://localhost:8123/index.html\")"
-    ]
-  }
-}
