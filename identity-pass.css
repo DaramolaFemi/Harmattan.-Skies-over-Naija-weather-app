@@ -1,13 +1,3 @@
 /* Harmattan identity refinement
-   Preserve the atmospheric glass UI, weather effects, spacing and interaction system.
-   This pass only changes the interface sans and removes forced all-caps from two labels. */
-
-:root {
-  --font-body: "Public Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-}
-
-.brand-text p,
-.greeting {
-  text-transform: none;
-  letter-spacing: 0.035em;
-}
+   Typography now lives directly in style.css.
+   This file remains intentionally empty so existing stylesheet references stay harmless. */
